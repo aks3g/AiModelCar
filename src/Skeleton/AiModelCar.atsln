@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "libxmegaE5", "..\AtmelLibrarys\libxmegaE5\libxmegaE5.cppproj", "{CEC277AF-E289-4540-B566-C882914A62ED}"
+EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "AiModelCar", "AiModelCarBase\AiModelCar.cppproj", "{7692635E-6D06-4247-A9A5-B37E8CE11A0E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEC277AF-E289-4540-B566-C882914A62ED} = {CEC277AF-E289-4540-B566-C882914A62ED}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Debug|AVR.Build.0 = Debug|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Release|AVR.ActiveCfg = Release|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Release|AVR.Build.0 = Release|AVR
+		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Debug|AVR.ActiveCfg = Debug|AVR
+		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Debug|AVR.Build.0 = Debug|AVR
+		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Release|AVR.ActiveCfg = Release|AVR
+		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
