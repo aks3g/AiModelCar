@@ -23,6 +23,7 @@
 #include "ioconfig.h"
 #include "LSM330DLC.h"
 
+#include "system_service.h"
 #include "userland.h"
 
 /*---------------------------------------------------------------------------*/
@@ -168,6 +169,27 @@ uint16_t systemServGetMini4wdBatteryVoltage(void)
 	return sBusVoltage;
 }
 
+void systemServDebugLed(USER_LED_INDEX ledIndex, USER_LED_MODE on_off)
+{
+	if (ledIndex == USER_LED_0) {
+		gpio_output(nDEBUG_LED0_PORT, nDEBUG_LED0_PIN, ((on_off == USER_LED_ON) ? 0 : 1));
+	}
+	else if (ledIndex == USER_LED_1) {
+		gpio_output(nDEBUG_LED1_PORT, nDEBUG_LED1_PIN, ((on_off == USER_LED_ON) ? 0 : 1));
+	}
+}
+
+uint16_t systemServGetSensorDataFrequency(void)
+{
+	return 400; //TODO
+}
+
+
+uint16_t systemServGetTimerFrequency(void)
+{
+	//J 5ms‚ÌŽüŠúƒJƒEƒ“ƒ^‚È‚Ì‚Å
+	return 200; //TODO
+}
 
 
 /*---------------------------------------------------------------------------*/

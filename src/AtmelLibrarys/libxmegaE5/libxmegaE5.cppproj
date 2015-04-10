@@ -39,6 +39,7 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <preserveEEPROM>true</preserveEEPROM>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -89,9 +90,11 @@
         </avrgcccpp.linker.libraries.Libraries>
       </AvrGccCpp>
     </ToolchainSettings>
-    <PostBuildEvent>copy $(OutputDirectory)\$(Name)$(OutputFileExtension) $(SolutionDir)\lib</PostBuildEvent>
+    <PostBuildEvent>copy $(OutputDirectory)\$(Name)$(OutputFileExtension) $(SolutionDir)\lib\</PostBuildEvent>
     <OutputFileName>libxmegaE5</OutputFileName>
     <OutputFileExtension>.a</OutputFileExtension>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>

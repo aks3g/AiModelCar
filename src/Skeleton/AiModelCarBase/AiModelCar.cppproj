@@ -49,6 +49,7 @@
       <ToolNumber>000200162353</ToolNumber>
       <ToolName>AVRISP mkII</ToolName>
     </com_atmel_avrdbg_tool_ispmk2>
+    <preserveEEPROM>true</preserveEEPROM>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -79,7 +80,7 @@
   <Value>libxmegaE5</Value>
   <Value>libxmegaE5.a</Value>
 </ListValues></avrgcccpp.linker.libraries.Libraries>
-  <avrgcccpp.linker.libraries.LibrarySearchPaths><ListValues><Value>../../../AtmelLibrarys/lib</Value></ListValues></avrgcccpp.linker.libraries.LibrarySearchPaths>
+  <avrgcccpp.linker.libraries.LibrarySearchPaths><ListValues><Value>../../lib</Value></ListValues></avrgcccpp.linker.libraries.LibrarySearchPaths>
   <avrgcc.compiler.symbols.DefSymbols><ListValues><Value>NDEBUG</Value></ListValues></avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths><ListValues><Value>../../../RobotPlatform/RobotSystem/AtmelLibrarys/include</Value></ListValues></avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize most (-O3)</avrgcc.compiler.optimization.level>
@@ -115,7 +116,7 @@
   <Value>libmegaE5.a</Value>
 </ListValues></avrgcccpp.linker.libraries.Libraries>
   <avrgcccpp.linker.libraries.LibrarySearchPaths><ListValues>
-  <Value>../../../AtmelLibrarys/lib</Value>
+  <Value>../../lib</Value>
   <Value>../../libxmegaE5/Release</Value>
 </ListValues></avrgcccpp.linker.libraries.LibrarySearchPaths>
   <avrgcc.compiler.symbols.DefSymbols><ListValues><Value>DEBUG</Value></ListValues></avrgcc.compiler.symbols.DefSymbols>
