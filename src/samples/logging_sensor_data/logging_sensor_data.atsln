@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "logging_sensor_data", "logging_sensor_data\logging_sensor_data.cppproj", "{ABBF23EA-E15D-41D7-9C1C-5EC222092833}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3033E05-9E70-4019-8586-E8ADB8FDE152} = {F3033E05-9E70-4019-8586-E8ADB8FDE152}
+		{CEC277AF-E289-4540-B566-C882914A62ED} = {CEC277AF-E289-4540-B566-C882914A62ED}
+	EndProjectSection
+EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "libxmegaE5", "..\..\AtmelLibrarys\libxmegaE5\libxmegaE5.cppproj", "{CEC277AF-E289-4540-B566-C882914A62ED}"
+EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "SystemProgram", "..\..\Skeleton\SystemProgram\SystemProgram.cppproj", "{F3033E05-9E70-4019-8586-E8ADB8FDE152}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABBF23EA-E15D-41D7-9C1C-5EC222092833}.Debug|AVR.ActiveCfg = Debug|AVR
+		{ABBF23EA-E15D-41D7-9C1C-5EC222092833}.Debug|AVR.Build.0 = Debug|AVR
+		{ABBF23EA-E15D-41D7-9C1C-5EC222092833}.Release|AVR.ActiveCfg = Release|AVR
+		{ABBF23EA-E15D-41D7-9C1C-5EC222092833}.Release|AVR.Build.0 = Release|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Debug|AVR.Build.0 = Debug|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Release|AVR.ActiveCfg = Release|AVR
+		{CEC277AF-E289-4540-B566-C882914A62ED}.Release|AVR.Build.0 = Release|AVR
+		{F3033E05-9E70-4019-8586-E8ADB8FDE152}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F3033E05-9E70-4019-8586-E8ADB8FDE152}.Debug|AVR.Build.0 = Debug|AVR
+		{F3033E05-9E70-4019-8586-E8ADB8FDE152}.Release|AVR.ActiveCfg = Release|AVR
+		{F3033E05-9E70-4019-8586-E8ADB8FDE152}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
