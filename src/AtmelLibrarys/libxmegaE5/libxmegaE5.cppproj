@@ -90,7 +90,8 @@
         </avrgcccpp.linker.libraries.Libraries>
       </AvrGccCpp>
     </ToolchainSettings>
-    <PostBuildEvent>copy $(OutputDirectory)\$(Name)$(OutputFileExtension) $(SolutionDir)\lib\</PostBuildEvent>
+    <PostBuildEvent>MD $(SolutionDir)\lib
+copy $(OutputDirectory)\$(Name)$(OutputFileExtension) $(SolutionDir)\lib\</PostBuildEvent>
     <OutputFileName>libxmegaE5</OutputFileName>
     <OutputFileExtension>.a</OutputFileExtension>
     <PreBuildEvent>
@@ -148,7 +149,8 @@
         <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
       </AvrGccCpp>
     </ToolchainSettings>
-    <PostBuildEvent>copy $(OutputDirectory)\$(Name)$(OutputFileExtension) $(SolutionDir)\lib</PostBuildEvent>
+    <PostBuildEvent>MD $(SolutionDir)\lib
+copy $(OutputDirectory)\$(Name)$(OutputFileExtension) $(SolutionDir)\lib</PostBuildEvent>
     <OutputFileName>libxmegaE5</OutputFileName>
     <OutputFileExtension>.a</OutputFileExtension>
   </PropertyGroup>
