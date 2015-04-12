@@ -1,0 +1,2 @@
+# Parameter file
+max_duty = 50
