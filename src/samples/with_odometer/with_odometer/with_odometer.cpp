@@ -126,12 +126,12 @@ typedef enum {
 } UART_RECEIVE_STATE;
 
 typedef union {
-	uint8_t byte[16];
+	uint8_t byte[8];
 	struct{
-		uint8_t header[4];
-		int32_t x;
-		int32_t y;
-		uint8_t footer[4]; 
+		uint8_t header[2];
+		int16_t x;
+		int16_t y;
+		uint8_t footer[2]; 
 	} packet;
 } DISTANCE_METER_PACKET;
 
@@ -166,7 +166,7 @@ void updateUserland(void)
 		(void)uart_rx_n(&tmp, 1, &rlen);
 		(void)rlen;
 
-		//J パケットの先頭(0x10)を探す
+		//J パケットの先頭(0x08)を探す
 		if (sUartState == UART_WAIT_FOR_STX) {
 			if (tmp == 0x08) {
 				sUartState = UART_DATA_RECEIVING;
@@ -179,7 +179,7 @@ void updateUserland(void)
 		else{
 			sUartReceiveBuf.byte[sUartReceiveLen++] = tmp;
 			if (sUartReceiveLen >= sizeof(DISTANCE_METER_PACKET)) {
-				if (sUartReceiveBuf.byte[1]==0x02 && sUartReceiveBuf.byte[15]==0x03) {
+				if (sUartReceiveBuf.byte[1]==0x02 && sUartReceiveBuf.byte[7]==0x03) {
 
 					Disable_Int();
 					sDistanceX += sUartReceiveBuf.packet.x;
