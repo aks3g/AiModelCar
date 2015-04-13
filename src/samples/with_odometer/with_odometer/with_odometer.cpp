@@ -168,7 +168,7 @@ void updateUserland(void)
 
 		//J パケットの先頭(0x10)を探す
 		if (sUartState == UART_WAIT_FOR_STX) {
-			if (tmp == 0x10) {
+			if (tmp == 0x08) {
 				sUartState = UART_DATA_RECEIVING;
 				
 				sUartReceiveLen = 0;
@@ -178,9 +178,9 @@ void updateUserland(void)
 		//J 見つけたら16バイト受信する
 		else{
 			sUartReceiveBuf.byte[sUartReceiveLen++] = tmp;
-
 			if (sUartReceiveLen >= sizeof(DISTANCE_METER_PACKET)) {
 				if (sUartReceiveBuf.byte[1]==0x02 && sUartReceiveBuf.byte[15]==0x03) {
+
 					Disable_Int();
 					sDistanceX += sUartReceiveBuf.packet.x;
 					sDistanceY += sUartReceiveBuf.packet.y;
