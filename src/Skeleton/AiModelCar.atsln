@@ -6,7 +6,10 @@ EndProject
 Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "AiModelCar", "AiModelCarBase\AiModelCar.cppproj", "{7692635E-6D06-4247-A9A5-B37E8CE11A0E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CEC277AF-E289-4540-B566-C882914A62ED} = {CEC277AF-E289-4540-B566-C882914A62ED}
+		{28E85ED9-6A66-4F90-9E7F-F47731800B31} = {28E85ED9-6A66-4F90-9E7F-F47731800B31}
 	EndProjectSection
+EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "SystemProgram", "SystemProgram\SystemProgram.cppproj", "{28E85ED9-6A66-4F90-9E7F-F47731800B31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +25,10 @@ Global
 		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Debug|AVR.Build.0 = Debug|AVR
 		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Release|AVR.ActiveCfg = Release|AVR
 		{7692635E-6D06-4247-A9A5-B37E8CE11A0E}.Release|AVR.Build.0 = Release|AVR
+		{28E85ED9-6A66-4F90-9E7F-F47731800B31}.Debug|AVR.ActiveCfg = Debug|AVR
+		{28E85ED9-6A66-4F90-9E7F-F47731800B31}.Debug|AVR.Build.0 = Debug|AVR
+		{28E85ED9-6A66-4F90-9E7F-F47731800B31}.Release|AVR.ActiveCfg = Release|AVR
+		{28E85ED9-6A66-4F90-9E7F-F47731800B31}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
