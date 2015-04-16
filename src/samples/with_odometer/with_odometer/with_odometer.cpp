@@ -186,6 +186,9 @@ void updateUserland(void)
 					sDistanceY += sUartReceiveBuf.packet.y;
 					Enable_Int();
 				}
+				else {
+					gpio_output_toggle(nDEBUG_LED1_PORT, nDEBUG_LED1_PIN);
+				}
 				
 				sUartState = UART_WAIT_FOR_STX;
 			}
