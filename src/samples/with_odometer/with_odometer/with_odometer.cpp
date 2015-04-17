@@ -120,25 +120,6 @@ void initialize_userland(void)
 #define SENSOR_RECODE_TEXT_LEN		(64)
 static char sString[SENSOR_RECODE_TEXT_LEN * LOG_RECODE_SIZE + 1];
 
-typedef enum {
-	UART_WAIT_FOR_STX,
-	UART_DATA_RECEIVING,
-} UART_RECEIVE_STATE;
-
-typedef union {
-	uint8_t byte[8];
-	struct{
-		uint8_t header[2];
-		int16_t x;
-		int16_t y;
-		uint8_t footer[2]; 
-	} packet;
-} DISTANCE_METER_PACKET;
-
-static UART_RECEIVE_STATE sUartState = UART_WAIT_FOR_STX;
-static uint8_t sUartReceiveLen = 0;
-static DISTANCE_METER_PACKET sUartReceiveBuf;
-
 void updateUserland(void)
 {
 	//J センサのバッファがいっぱいになっていた場合の処理
@@ -156,6 +137,67 @@ void updateUserland(void)
 		f_sync(&sLogFile);
 	}
 
+
+			
+	return;
+}
+
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+uint8_t onSensorInterrupt(void *sensor)
+{
+	uint8_t duty = 0;
+
+	if (sRunning) {
+		duty =  max_duty;	
+	}
+	else {
+		duty =  0;	
+	}
+
+	if (sLogging) {
+		memcpy((void *)&sSensorLog[sActiveIndex][sWritePtr].data, (void *)sensor, sizeof(USER_SENSOR_DATA_SET));
+		sSensorLog[sActiveIndex][sWritePtr].distance = sDistanceY;
+		sSensorLog[sActiveIndex][sWritePtr].duty = duty;
+		sSensorLog[sActiveIndex][sWritePtr++].timeStamp = sTimeStamp;
+
+		if (sWritePtr >= LOG_RECODE_SIZE) {
+			sActiveIndex = 1-sActiveIndex; //J 0と1をスワップ
+			sWritePtr = 0;
+			sFlagSensorLogIsFull = true;
+		}
+	}
+
+	return duty;
+}
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+typedef enum {
+	UART_WAIT_FOR_STX,
+	UART_DATA_RECEIVING,
+} UART_RECEIVE_STATE;
+
+typedef union {
+	uint8_t byte[8];
+	struct{
+		uint8_t header[2];
+		int16_t x;
+		int16_t y;
+		uint8_t footer[2];
+	} packet;
+} DISTANCE_METER_PACKET;
+
+static UART_RECEIVE_STATE sUartState = UART_WAIT_FOR_STX;
+static uint8_t sUartReceiveLen = 0;
+static DISTANCE_METER_PACKET sUartReceiveBuf;
+
+void onTimerInterrupt(uint32_t tick)
+{
+	sTimeStamp = tick;
+	
+	
 	//J UARTからの距離計計測
 	uint32_t len = uart_get_rxlen();
 	while (len) {
@@ -193,46 +235,7 @@ void updateUserland(void)
 				sUartState = UART_WAIT_FOR_STX;
 			}
 		}
-	}
-			
-	return;
-}
-
-
-/*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*/
-uint8_t onSensorInterrupt(void *sensor)
-{
-	uint8_t duty = 0;
-
-	if (sRunning) {
-		duty =  max_duty;	
-	}
-	else {
-		duty =  0;	
-	}
-
-	if (sLogging) {
-		memcpy((void *)&sSensorLog[sActiveIndex][sWritePtr].data, (void *)sensor, sizeof(USER_SENSOR_DATA_SET));
-		sSensorLog[sActiveIndex][sWritePtr].distance = sDistanceY;
-		sSensorLog[sActiveIndex][sWritePtr].duty = duty;
-		sSensorLog[sActiveIndex][sWritePtr++].timeStamp = sTimeStamp;
-
-		if (sWritePtr >= LOG_RECODE_SIZE) {
-			sActiveIndex = 1-sActiveIndex; //J 0と1をスワップ
-			sWritePtr = 0;
-			sFlagSensorLogIsFull = true;
-		}
-	}
-
-	return duty;
-}
-
-/*---------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------*/
-void onTimerInterrupt(uint32_t tick)
-{
-	sTimeStamp = tick;
+	}	
 }
 
 
