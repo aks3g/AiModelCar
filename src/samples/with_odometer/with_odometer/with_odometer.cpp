@@ -55,6 +55,11 @@ static bool sGetFlagOnce(bool &flag);
 static uint16_t sSensorDataToText(uint32_t timestamp, uint8_t duty, uint32_t distance, void *data, char *string, uint16_t len);
 
 
+uint32_t cpiToMiliMeter(uint32_t cpi, uint8_t duty);
+uint8_t roadSufrfaceCondition(void *data);
+uint16_t updateOwnPosition(uint16_t currentPosition, uint32_t mileage, uint8_t surfaceCondition);
+
+
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 uint32_t max_duty = 80;
@@ -113,27 +118,26 @@ void initialize_userland(void)
 	} else {
 	}
 
+	cpiToMiliMeter(0,0);
+
 	return;	
 }
 
 /*---------------------------------------------------------------------------*/
 #define SENSOR_RECODE_TEXT_LEN		(64)
-static char sString[SENSOR_RECODE_TEXT_LEN * LOG_RECODE_SIZE + 1];
+static char sString[SENSOR_RECODE_TEXT_LEN + 1];
 
 void updateUserland(void)
 {
 	//J センサのバッファがいっぱいになっていた場合の処理
 	if (sGetFlagOnce(sFlagSensorLogIsFull)) {
-		char *str = sString;
 		uint8_t idx = 1-sActiveIndex;
 	
 		for (int i=0 ; i<LOG_RECODE_SIZE ; ++i) {
-			uint32_t len = sSensorDataToText(sSensorLog[idx][i].timeStamp, sSensorLog[idx][i].duty, sSensorLog[idx][i].distance, &sSensorLog[idx][i].data, str, SENSOR_RECODE_TEXT_LEN+1);
-			str += len;
+			uint32_t len = sSensorDataToText(sSensorLog[idx][i].timeStamp, sSensorLog[idx][i].duty, sSensorLog[idx][i].distance, &sSensorLog[idx][i].data, sString, SENSOR_RECODE_TEXT_LEN+1);
+			f_write(&sLogFile, (void *)sString, len, &len);
 		}
 
-		UINT len = 0;
-		f_write(&sLogFile, (void *)sString, (str - sString), &len);
 		f_sync(&sLogFile);
 	}
 
@@ -398,4 +402,31 @@ static char *sConvertToHexString8(char *buf, uint8_t data)
 	*buf++ = hex2ascii(data >>  0);
 
 	return buf;
+}
+
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+#define COURCE_LENGTH_IN_METER		(80)
+#define COURCE_LENGTH_IN_MM			(COURCE_LENGTH_IN_METER * 1000L)
+#define COURCE_DISCRETE_UNITS_IN_MM	(100)
+#define COURCE_DISCRETE_NUM_SLOT	(COURCE_LENGTH_IN_MM / COURCE_DISCRETE_UNITS_IN_MM)
+
+volatile static uint16_t sDiscretedCourceModel[COURCE_DISCRETE_NUM_SLOT];
+
+uint32_t cpiToMiliMeter(uint32_t cpi, uint8_t duty)
+{
+	return 0;
+}
+
+uint8_t roadSufrfaceCondition(void *data)
+{
+	
+	return 0;
+}
+
+uint16_t updateOwnPosition(uint16_t currentPosition, uint32_t mileage, uint8_t surfaceCondition)
+{
+	
+	return 0;
 }
