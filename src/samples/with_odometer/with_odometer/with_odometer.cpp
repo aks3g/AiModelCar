@@ -59,14 +59,6 @@ static uint16_t sSensorDataToText(uint32_t timestamp, uint8_t duty, uint32_t dis
 /*---------------------------------------------------------------------------*/
 // 離散マップベースでの制御を行う為のマップ
 /*---------------------------------------------------------------------------*/
-#define COURCE_LENGTH_IN_METER		(80)
-#define COURCE_LENGTH_IN_MM			(COURCE_LENGTH_IN_METER * 1000L)
-#define COURCE_DISCRETE_UNITS_IN_MM	(100)
-#define COURCE_DISCRETE_NUM_SLOT	(COURCE_LENGTH_IN_MM / COURCE_DISCRETE_UNITS_IN_MM)
-
-static uint16_t length_of_map = 0;
-volatile static uint16_t sDiscretedCourceModel[COURCE_DISCRETE_NUM_SLOT];
-
 static float sCpiToMiliMeterMap[11] =
 {
 	0.17541436,	/* Duty  0 -  9 */
@@ -83,9 +75,6 @@ static float sCpiToMiliMeterMap[11] =
 };
 
 float countToMiliMeter(int32_t count, uint8_t duty);
-uint8_t roadSufrfaceCondition(void *data);
-uint16_t updateOwnPosition(uint16_t currentPosition, uint32_t mileage, uint8_t surfaceCondition);
-
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
@@ -108,17 +97,6 @@ static void sCheckAndStoreParam(char *name, int16_t val)
 	//J Vatteryの最終電圧[mV]
 	else if (strcmp("min_battery_voltage", name) == 0) {
 		min_battery_voltage = (uint32_t)val;
-	}
-
-	//J マップを読み込む
-	//J mapはmapXXX　という書式
-	else if (strncmp("map", name, 3) == 0) {
-		char *indexPos = &name[3];
-		int index = strtol(indexPos, NULL, 10);
-		sDiscretedCourceModel[index] = val;
-	}
-	else if (strcmp("length_of_map", name) == 0) {
-		length_of_map = val;
 	}
 
 	//J CPI / mm 変換表
@@ -171,19 +149,20 @@ void initialize_userland(void)
 
 /*---------------------------------------------------------------------------*/
 #define SENSOR_RECODE_TEXT_LEN		(64)
-static char sString[SENSOR_RECODE_TEXT_LEN + 1];
+static char sString[SENSOR_RECODE_TEXT_LEN*LOG_RECODE_SIZE + 1];
 
 void updateUserland(void)
 {
 	//J センサのバッファがいっぱいになっていた場合の処理
 	if (sGetFlagOnce(sFlagSensorLogIsFull)) {
 		uint8_t idx = 1-sActiveIndex;
-	
+		char *str = sString;
 		for (int i=0 ; i<LOG_RECODE_SIZE ; ++i) {
-			uint32_t len = sSensorDataToText(sSensorLog[idx][i].timeStamp, sSensorLog[idx][i].duty, sSensorLog[idx][i].distance, &sSensorLog[idx][i].data, sString, SENSOR_RECODE_TEXT_LEN+1);
-			f_write(&sLogFile, (void *)sString, len, &len);
+			uint32_t len = sSensorDataToText(sSensorLog[idx][i].timeStamp, sSensorLog[idx][i].duty, sSensorLog[idx][i].distance, &sSensorLog[idx][i].data, str, SENSOR_RECODE_TEXT_LEN+1);
+			str += len;
 		}
-
+		uint32_t len = 0;
+		f_write(&sLogFile, (void *)sString, (str - sString), &len);
 		f_sync(&sLogFile);
 	}
 
@@ -471,16 +450,4 @@ float countToMiliMeter(int32_t count, uint8_t duty)
 	int index = (duty + 5) / 10;
 	
 	return count * sCpiToMiliMeterMap[index];
-}
-
-uint8_t roadSufrfaceCondition(void *data)
-{
-	
-	return 0;
-}
-
-uint16_t updateOwnPosition(uint16_t currentPosition, uint32_t mileage, uint8_t surfaceCondition)
-{
-	
-	return 0;
 }
