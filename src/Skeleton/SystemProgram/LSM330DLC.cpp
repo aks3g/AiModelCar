@@ -103,7 +103,7 @@ int8_t initialize_lsm330dlc(void)
 	(void)i2c_txRxBytes(LSM330DLC_ACCEL_ADR, cmd, 2, 0, 0);
 
 	cmd[0] = LSM330DLC_CTRL_REG4_A;
-	cmd[1] = 0x38; //J FS1-FS0 = 10: +-8G, HR = 1: High Resolution
+	cmd[1] = 0x38; //J FS1-FS0 = 10: +-16G, HR = 1: High Resolution
 	(void)i2c_txRxBytes(LSM330DLC_ACCEL_ADR, cmd, 2, 0, 0);
 
 	cmd[0] = LSM330DLC_CTRL_REG5_A;

@@ -9,6 +9,8 @@
 #ifndef SYSTEM_SERVICE_H_
 #define SYSTEM_SERVICE_H_
 
+#include <stdint.h>
+
 extern int main(void);
 
 /*---------------------------------------------------------------------------*/

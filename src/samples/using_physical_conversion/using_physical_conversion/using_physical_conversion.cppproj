@@ -4,42 +4,52 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.CPP</ToolchainName>
-    <ProjectGuid>{28e85ed9-6a66-4f90-9e7f-f47731800b31}</ProjectGuid>
+    <ProjectGuid>{abbf23ea-e15d-41d7-9c1c-5ec222092833}</ProjectGuid>
     <avrdevice>ATxmega32E5</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
-    <OutputType>StaticLibrary</OutputType>
+    <OutputType>Executable</OutputType>
     <Language>CPP</Language>
-    <OutputFileName>lib$(MSBuildProjectName)</OutputFileName>
-    <OutputFileExtension>.a</OutputFileExtension>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AvrGccProjectExtensions>
-    </AvrGccProjectExtensions>
-    <AssemblyName>SystemProgram</AssemblyName>
-    <Name>SystemProgram</Name>
-    <RootNamespace>SystemProgram</RootNamespace>
+    <AssemblyName>logging_sensor_data</AssemblyName>
+    <Name>logging_sensor_data</Name>
+    <RootNamespace>logging_sensor_data</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
-    <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
-    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
-      <framework-data>
+      <framework-data xmlns="">
         <options />
         <configurations />
         <files />
         <documentation help="" />
         <offline-documentation help="" />
         <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.10.1" />
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.17.0" />
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.ispmk2</avrtool>
+    <avrtoolinterface>PDI</avrtoolinterface>
+    <com_atmel_avrdbg_tool_ispmk2>
+      <ToolOptions>
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>PDI</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.ispmk2</ToolType>
+      <ToolNumber>000200081042</ToolNumber>
+      <ToolName>AVRISP mkII</ToolName>
+    </com_atmel_avrdbg_tool_ispmk2>
+    <preserveEEPROM>true</preserveEEPROM>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -58,8 +68,8 @@
         <avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>
         <avrgcccpp.compiler.directories.IncludePaths>
           <ListValues>
-            <Value>../../include</Value>
-            <Value>../../../AtmelLibrarys/include/xmegaE5</Value>
+            <Value>../../../../Skeleton/include</Value>
+            <Value>../../../../AtmelLibrarys/include/xmegaE5</Value>
           </ListValues>
         </avrgcccpp.compiler.directories.IncludePaths>
         <avrgcccpp.compiler.optimization.PackStructureMembers>True</avrgcccpp.compiler.optimization.PackStructureMembers>
@@ -68,8 +78,15 @@
         <avrgcccpp.linker.libraries.Libraries>
           <ListValues>
             <Value>libm</Value>
+            <Value>libxmegaE5.a</Value>
+            <Value>libSystemProgram.a</Value>
           </ListValues>
         </avrgcccpp.linker.libraries.Libraries>
+        <avrgcccpp.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../../lib</Value>
+          </ListValues>
+        </avrgcccpp.linker.libraries.LibrarySearchPaths>
         <avrgcc.compiler.symbols.DefSymbols>
           <ListValues>
             <Value>NDEBUG</Value>
@@ -84,8 +101,6 @@
         <avrgcccpp.compiler.optimization.level>Optimize for size (-Os)</avrgcccpp.compiler.optimization.level>
       </AvrGccCpp>
     </ToolchainSettings>
-    <PostBuildEvent>MD $(SolutionDir)\lib
-copy $(OutputDirectory)\$(OutputFileName)$(OutputFileExtension) $(SolutionDir)\lib\</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -104,8 +119,8 @@ copy $(OutputDirectory)\$(OutputFileName)$(OutputFileExtension) $(SolutionDir)\l
         <avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>
         <avrgcccpp.compiler.directories.IncludePaths>
           <ListValues>
-            <Value>../../include</Value>
-            <Value>../../../AtmelLibrarys/include/xmegaE5</Value>
+            <Value>../../../../Skeleton/include</Value>
+            <Value>../../../../AtmelLibrarys/include/xmegaE5</Value>
           </ListValues>
         </avrgcccpp.compiler.directories.IncludePaths>
         <avrgcccpp.compiler.optimization.PackStructureMembers>True</avrgcccpp.compiler.optimization.PackStructureMembers>
@@ -114,8 +129,15 @@ copy $(OutputDirectory)\$(OutputFileName)$(OutputFileExtension) $(SolutionDir)\l
         <avrgcccpp.linker.libraries.Libraries>
           <ListValues>
             <Value>libm</Value>
+            <Value>libxmegaE5.a</Value>
+            <Value>libSystemProgram.a</Value>
           </ListValues>
         </avrgcccpp.linker.libraries.Libraries>
+        <avrgcccpp.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../../lib</Value>
+          </ListValues>
+        </avrgcccpp.linker.libraries.LibrarySearchPaths>
         <avrgcc.compiler.symbols.DefSymbols>
           <ListValues>
             <Value>DEBUG</Value>
@@ -135,28 +157,10 @@ copy $(OutputDirectory)\$(OutputFileName)$(OutputFileExtension) $(SolutionDir)\l
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AiMini4wdBase.cpp">
+    <Compile Include="using_physical_conversion.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ff.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ioconfig.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="LSM330DLC.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="LSM330DLC.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="parameter.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="physical_conversion_support.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="sdmm.cpp">
+    <Compile Include="log_data_structure.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
